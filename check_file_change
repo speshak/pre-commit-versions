@@ -1,0 +1,17 @@
+#!/bin/sh
+# Enforce that a file has been updated in this branch
+
+CHECKED_FILE="$1"
+ROOT=$(git rev-parse --show-toplevel)
+
+if [ ! -e "${ROOT}/${CHECKED_FILE}" ]; then
+  exit 0
+fi
+
+if git diff --name-status master "${ROOT}/${CHECKED_FILE}" | grep -Eq "^M\\s+${CHECKED_FILE}$" ; then
+  # The checked file has been modified
+  exit 0
+else
+  echo "${CHECKED_FILE} has not been modified by any commits in this branch."
+  exit 1
+fi

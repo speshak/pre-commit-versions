@@ -1,0 +1,15 @@
+---
+- id: check-version-change
+  name: check-version-change
+  description: Enforce that the VERSION file has been updated by some commit on the current branch.
+  language: shell
+  entry: check_file_change
+  args: [VERSION]
+  always_run: true
+- id: check-changelog-change
+  name: check-changelog-change
+  description: Enforce that the VERSION file has been updated by some commit on the current branch.
+  language: shell
+  entry: check_file_change
+  args: [CHANGELOG.md]
+  always_run: true
