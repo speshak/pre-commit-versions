@@ -8,7 +8,9 @@ if [ ! -e "${ROOT}/${CHECKED_FILE}" ]; then
   exit 0
 fi
 
-if git diff --name-status master "${ROOT}/${CHECKED_FILE}" | grep -Eq "^M\\s+${CHECKED_FILE}$" ; then
+DEFAULT_BRANCH=$(git remote show origin | grep "HEAD branch" | cut -d ":" -f 2 | sed 's/ //')
+
+if git diff --name-status "${DEFAULT_BRANCH}" "${ROOT}/${CHECKED_FILE}" | grep -Eq "^M\\s+${CHECKED_FILE}$" ; then
   # The checked file has been modified
   exit 0
 else
